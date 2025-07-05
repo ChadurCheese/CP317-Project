@@ -1,8 +1,7 @@
 abstract class Student {
-    protected int id;
-    protected String name;
+    protected String name, id;
 
-    public Student(int id, String name) {
+    public Student(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -11,7 +10,7 @@ abstract class Student {
         return this.name;
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
