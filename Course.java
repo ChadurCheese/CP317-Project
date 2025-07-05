@@ -1,8 +1,8 @@
-class Courses extends Student{
+class Course extends Student{
     private String code;
     private double test1, test2, test3, exam, finalGrade;
     
-    public Courses(int id, String name, String code, 
+    public Course(String id, String name, String code, 
                        double test1, double test2, double test3, double exam) {
         super(id, name);
         this.code = code;
@@ -27,7 +27,6 @@ class Courses extends Student{
 
     @Override
     public String toString() {
-        // return String.format(name, null)
-        return "";
+        return String.format("%-10s\t%-20s\t%-15s\t%-4.1f", id, name, code, finalGrade);
     }
 }
