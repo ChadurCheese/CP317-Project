@@ -1,12 +1,20 @@
-class Student {
-    private int id;
-    private String firstName;
-    private String lastName;
-    
-    public Student(int id, String firstName, String lastName) {
+abstract class Student {
+    protected int id;
+    protected String name;
+
+    public Student(int id, String name) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public abstract String toString();
+
 }
-//test
