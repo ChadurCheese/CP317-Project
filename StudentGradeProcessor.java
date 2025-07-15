@@ -12,6 +12,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -86,24 +88,96 @@ public class StudentGradeProcessor {
      * @throws IOException   If there's an error writing the file
      */
     public static void writeOutputFile(String filename, ArrayList<Course> courseRecords) throws IOException {
-            // Sort records by student ID
-            courseRecords.sort(Comparator.comparing(Course::getId));
+        // Sort records by student ID
+        courseRecords.sort(Comparator.comparing(Course::getId));
+        
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+            // Header
+            writer.printf("%-10s\t%-20s\t%-15s\t%-4s\n", "Student ID", "Student Name", "Course Code", "Final Grade");
             
-            try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
-                // Header
-                writer.printf("%-10s\t%-20s\t%-15s\t%-4s\n", "Student ID", "Student Name", "Course Code", "Final Grade");
-                
-                // Write each record
-                for (Course record : courseRecords) {
-                    writer.println(record);
-                }
+            // Write each record
+            for (Course record : courseRecords) {
+                writer.println(record);
             }
         }
+    }
+
+    /**
+     * INTERNAL TESTING SUITE
+     * Run with: java StudentGradeProcessor --test
+     */
+    private static void runTests() {
+        System.out.println("\n=== RUNNING INTERNAL TESTS ===");
+        int testsPassed = 0;
+        int totalTests = 0;
+
+        // Test 1: Course grade calculation
+        try {
+            Course testCourse = new Course("001", "Test", "CP101", 80, 85, 90, 75);
+            double expectedGrade = (80 + 85 + 90) * 0.2 + 75 * 0.4; // 82.5
+            if (Math.abs(testCourse.getFinalGrade() - expectedGrade) < 0.01) {
+                System.out.println("[PASS] Grade calculation");
+                testsPassed++;
+            } else {
+                System.out.println("[FAIL] Grade calculation");
+            }
+            totalTests++;
+        } catch (Exception e) {
+            System.out.println("[FAIL] Grade calculation crashed: " + e.getMessage());
+            totalTests++;
+        }
+
+        // Test 2: Name file parsing
+        try {
+            HashMap<String, String> testNames = new HashMap<>();
+            String testData = "001,John Doe\n002,Jane Smith";
+            Files.write(Paths.get("test_names.txt"), testData.getBytes());
+            
+            readNameFile("test_names.txt", testNames);
+            if (testNames.size() == 2 && testNames.get("001").equals("John Doe")) {
+                System.out.println("[PASS] Name file parsing");
+                testsPassed++;
+            } else {
+                System.out.println("[FAIL] Name file parsing");
+            }
+            totalTests++;
+            Files.deleteIfExists(Paths.get("test_names.txt"));
+        } catch (Exception e) {
+            System.out.println("[FAIL] Name file parsing crashed: " + e.getMessage());
+            totalTests++;
+        }
+
+        // Test 3: Invalid grade handling
+        try {
+            new Course("001", "Test", "CP101", -5, 85, 90, 75);
+            System.out.println("[FAIL] Invalid grade handling (accepted negative)");
+            totalTests++;
+        } catch (IllegalArgumentException e) {
+            System.out.println("[PASS] Invalid grade handling");
+            testsPassed++;
+            totalTests++;
+        }
+
+        // Summary
+        System.out.printf("\nTESTS PASSED: %d/%d (%.0f%%)\n",
+            testsPassed, totalTests, (testsPassed * 100.0 / totalTests));
+        
+        if (testsPassed == totalTests) {
+            System.out.println("ALL TESTS PASSED!");
+        } else {
+            System.out.println("SOME TESTS FAILED");
+        }
+    }
 
         /**
      * Main program entry point
      */
     public static void main(String[] args) {
+
+        if (args.length > 0 && args[0].equals("--test")) {
+            runTests();
+            return;
+        }
 
         final String nameFile = "NameFile.txt";
         final String courseFile = "CourseFile.txt";
