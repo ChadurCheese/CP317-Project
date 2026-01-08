@@ -9,7 +9,7 @@ This application reads student information and course grades from text files, pr
 
 ## 👥 Contributors
 
-- **Developer**: Piotr, Ashnivan, Muhammad, Raafay
+- **Developer**: Piotr, Ashvinan, Muhammad, Raafay
 
 ## 📁 Project Directory Structure
 
