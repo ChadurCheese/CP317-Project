@@ -9,9 +9,7 @@ This application reads student information and course grades from text files, pr
 
 ## 👥 Contributors
 
-- **Developer**: [Your Name/Username]
-- **Course**: CP317 - Software Development
-- **Institution**: [Your School/University]
+- **Developer**: Piotr, Ashnivan, Muhammad, Raafay
 
 ## 📁 Project Directory Structure
 
@@ -34,7 +32,7 @@ CP317-Project/
 ### 📊 Data Processing
 - Reads student data from `NameFile.txt`
 - Processes course grades from `CourseFile.txt`
-- Calculates weighted grades and GPAs
+- Calculates weighted final grades
 - Generates formatted output in `outputFile.txt`
 
 ### 🏗️ Object-Oriented Design
