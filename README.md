@@ -1,4 +1,4 @@
-```markdown
+
 # Student Grade Processing System
 
 A Java-based command-line application for processing and calculating student grades from course data files.
@@ -15,7 +15,7 @@ This application reads student information and course grades from text files, pr
 
 ## 📁 Project Directory Structure
 
-```
+```markdown
 CP317-Project/
 ├── Course.java                    # Course data model class
 ├── Student.java                   # Student data model class
@@ -52,4 +52,3 @@ CP317-Project/
 - Shows object-oriented programming principles
 - Practical example of data processing algorithms
 - Clean code structure suitable for academic projects
-```
